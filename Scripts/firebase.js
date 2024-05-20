@@ -19,6 +19,7 @@ function main() {
 
 function makeTopNav() {
   const NAV = document.getElementById("topNav");
+  NAV.innerHTML = "";
   db.ref("/UserData").on("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       const DIV = document.createElement("div");
@@ -36,10 +37,6 @@ function makeTopNav() {
 function displaySearch() {
   const temp = location.search;
   const params = new URLSearchParams(temp);
-  console.log(params);
-  params.forEach((param) => {
-    console.log(param);
-  });
   const userSelect = params.get("s");
   console.log(userSelect);
 
@@ -50,28 +47,41 @@ function displaySearch() {
           childSnapshot.val().discordUsername,
           childSnapshot.val().blooketUsername,
           childSnapshot.val().points,
-          childSnapshot.val().timezone,
-          childSnapshot.val().qualifierSet
+          childSnapshot.val().timeAvailability[0],
+          childSnapshot.val().qualifierSet,
+          childSnapshot.val().timezone
         );
       }
     });
   });
 }
 
-function displayUser(discord, blooket, points, times, qualifier) {
+function displayUser(discord, blooket, points, times, qualifier, timezone) {
+  let textnode;
   const DIV = document.getElementById("userData");
-  console.log("displayUser");
+  DIV.innerHTML = "";
 
-  let p = document.createElement("p");
-  let textnode = document.createTextNode(discord);
-  p.appendChild(textnode);
-  DIV.appendChild(p);
+  for (let i = 0; i < 5; i++) {
+    let p = document.createElement("p");
+    if (i == 0) {
+      textnode = document.createTextNode(`Discord: ${discord}`);
+    } else if (i == 1) {
+      textnode = document.createTextNode(`Blooket: ${blooket}`);
+    } else if (i == 2) {
+      textnode = document.createTextNode(`Points: ${points}`);
+    } else if (i == 3) {
+      textnode = document.createTextNode(`Qualifier Set: ${qualifier}`);
+    } else if (i == 4) {
+      textnode = document.createTextNode(`Timezone: ${timezone}`);
+    }
+    p.appendChild(textnode);
+    DIV.appendChild(p);
+  }
 }
 
 function searching() {
   const test = event.target;
-  console.log(test.innerHTML);
-  window.location.search = test;
+  window.location.search = `s=${test.innerHTML}`;
 }
 
 main();
