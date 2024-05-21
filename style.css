@@ -2,6 +2,7 @@ body {
   background-color: whitesmoke;
   margin: 0px;
 }
+
 #topNav {
   background-color: gray;
   height: 10vh;
@@ -12,7 +13,8 @@ body {
   align-items: center;
   width: 100vw;
 }
-#topNav > div {
+
+#topNav>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,10 +25,19 @@ body {
   min-width: 10%;
   cursor: pointer;
 }
+
 #footer {
   position: fixed;
   bottom: 0;
   background-color: gray;
   height: 7vh;
   width: 100vw;
+}
+
+.true {
+  background-color: lightgreen;
+}
+
+.false {
+  background-color: lightcoral;
 }

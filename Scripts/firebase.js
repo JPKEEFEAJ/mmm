@@ -12,6 +12,16 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
+const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
+
 function main() {
   makeTopNav();
   displaySearch();
@@ -47,16 +57,16 @@ function displaySearch() {
           childSnapshot.val().discordUsername,
           childSnapshot.val().blooketUsername,
           childSnapshot.val().points,
-          childSnapshot.val().timeAvailability[0],
           childSnapshot.val().qualifierSet,
           childSnapshot.val().timezone
         );
+        timeTable(childSnapshot.val().timeAvailability);
       }
     });
   });
 }
 
-function displayUser(discord, blooket, points, times, qualifier, timezone) {
+function displayUser(discord, blooket, points, qualifier, timezone) {
   let textnode;
   const DIV = document.getElementById("userData");
   DIV.innerHTML = "";
@@ -77,6 +87,76 @@ function displayUser(discord, blooket, points, times, qualifier, timezone) {
     p.appendChild(textnode);
     DIV.appendChild(p);
   }
+}
+
+function timeTable(times) {
+  const tableDiv = document.getElementById("timeTable");
+  tableDiv.innerHTML = "";
+  const table = document.createElement("table");
+  let textnode;
+
+  let temp = times[0];
+
+  setUpTable();
+
+  temp = temp.mondays[0];
+  tableRow(0);
+  temp = times[0].tuesdays[0];
+  tableRow(1);
+  temp = times[0].wednesdays[0];
+  tableRow(2);
+  temp = times[0].thursdays[0];
+  tableRow(3);
+  temp = times[0].fridays[0];
+  tableRow(4);
+  temp = times[0].saturdays[0];
+  tableRow(5);
+  temp = times[0].sundays[0];
+  tableRow(6);
+
+  function setUpTable() {
+    const tr = document.createElement("tr");
+
+    const spacer = document.createElement("th");
+    tr.appendChild(spacer);
+
+    for (let i = 0; i < 24; i++) {
+      const th = document.createElement("th");
+      if (i < 12) {
+        textnode = document.createTextNode(i + 1 + "AM");
+      } else if (i > 11) {
+        textnode = document.createTextNode(i - 11 + "PM");
+      }
+      th.appendChild(textnode);
+
+      tr.appendChild(th);
+      table.appendChild(tr);
+    }
+
+  }
+
+  function tableRow(day) {
+    const tr = document.createElement("tr");
+    const th = document.createElement("th");
+    textnode = document.createTextNode(daysOfWeek[day]);
+    th.appendChild(textnode);
+    tr.appendChild(th);
+
+    for (let i = 0; i < 24; i++) {
+      const td = document.createElement("td");
+      if (temp[i]) {
+        td.classList.add("true");
+      } else if (!temp[i]) {
+        td.classList.add("false");
+      }
+      textnode = document.createTextNode(temp[i]);
+      td.appendChild(textnode);
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+
+  tableDiv.appendChild(table);
 }
 
 function searching() {
