@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Zone - Admin</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="dropdown.css">
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
@@ -13,21 +14,27 @@
 </head>
 
 <body>
-  <div id="topNav">
+  <input type="text" id="titleInput" placeholder="Type the title for the annoucement">
+  <br>
+  <textarea id="textInput" placeholder="Type your message here"></textarea>
+  <br>
+  <div class="dropdown">
+    <button class="dropbtn">Select Admin</button>
+    <div class="dropdown-content">
+      <a href="#Leo">Leo</a>
+      <a href="#Legend">Legend</a>
+      <a href="#Rombus">Rombus</a>
+    </div>
   </div>
   <br>
+  <button type="button" onclick="updateAnnouncements()">Submit</button>
   <br>
-  <br>
-  <br>
-  <br>
-  <div id="userData">
-  </div>
   <div id="footer">
     <a href="index.html">User Data</a>
     <a href="announcementMaker.html">Announcements</a>
   </div>
 
-  <script src="Scripts/firebase.js"></script>
+  <script src="Scripts/announcementMaker.js"></script>
 </body>
 
 </html>
