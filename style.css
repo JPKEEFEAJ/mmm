@@ -14,7 +14,7 @@ body {
   width: 100vw;
 }
 
-#topNav>div {
+#topNav > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,4 +40,44 @@ body {
 
 .false {
   background-color: lightcoral;
+}
+
+.roundSelect {
+  font-size: 35px;
+  background-color: coral;
+  display: inline;
+  cursor: pointer;
+}
+
+#groupAmmount {
+}
+
+.groupDiv {
+  border: solid 3px black;
+  display: inline-block;
+  height: 25%;
+  margin-right: 10px;
+}
+
+.playerDiv {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: center;
+  min-height: 40px;
+}
+
+#players {
+  border: dashed 3px black;
+}
+
+.centered {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+}
+
+.userDiv {
+  display: inline;
 }
