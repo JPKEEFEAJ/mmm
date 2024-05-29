@@ -65,6 +65,12 @@ function displaySearch() {
     });
   });
 }
+function returnSearch() {
+  const temp = location.search;
+  const params = new URLSearchParams(temp);
+  const userSelect = params.get("s");
+  return userSelect;
+}
 
 function displayUser(discord, blooket, points, qualifier, timezone) {
   let textnode;
@@ -79,13 +85,27 @@ function displayUser(discord, blooket, points, qualifier, timezone) {
       textnode = document.createTextNode(`Blooket: ${blooket}`);
     } else if (i == 2) {
       textnode = document.createTextNode(`Points: ${points}`);
+      p.style.display = "inline";
     } else if (i == 3) {
       textnode = document.createTextNode(`Qualifier Set: ${qualifier}`);
     } else if (i == 4) {
       textnode = document.createTextNode(`Timezone: ${timezone}`);
     }
     p.appendChild(textnode);
+
     DIV.appendChild(p);
+    if (i == 2) {
+      const INPUT = document.createElement("input");
+      INPUT.id = "pointsInput";
+      INPUT.setAttribute("type", "number");
+      INPUT.setAttribute("value", `${points}`);
+      DIV.appendChild(INPUT);
+
+      const SUBMIT = document.createElement("button");
+      SUBMIT.innerHTML = "Submit Points";
+      SUBMIT.setAttribute("onclick", "submitPoints()");
+      DIV.appendChild(SUBMIT);
+    }
   }
 }
 
@@ -132,7 +152,6 @@ function timeTable(times) {
       tr.appendChild(th);
       table.appendChild(tr);
     }
-
   }
 
   function tableRow(day) {
@@ -164,4 +183,13 @@ function searching() {
   window.location.search = `s=${test.innerHTML}`;
 }
 
+function submitPoints() {
+  db.ref("/UserData")
+    .child(returnSearch())
+    .update({
+      points: Number(document.getElementById("pointsInput").value)
+    });
+}
+
 main();
+console.log(returnSearch());
