@@ -158,6 +158,7 @@ function makeSettings() {
   settingInputMake(4, "setMaker", "Leo");
   settingInputMake(5, "setTitle", "Guess the Logo");
   settingInputMake(6, "time", "7 Min");
+  settingInputMake(7, "scale", "0.001");
 
   MAIN_DIV.appendChild(DIV);
 
@@ -230,7 +231,8 @@ function submitGroup() {
       mode: document.getElementById("settingInput_2").value,
       set: document.getElementById("settingInput_3").value,
       setMaker: document.getElementById("settingInput_4").value,
-      setTitle: document.getElementById("settingInput_0").value,
-      time: document.getElementById("settingInput_0").value
+      setTitle: document.getElementById("settingInput_5").value,
+      time: document.getElementById("settingInput_6").value,
+      scale: document.getElementById("settingInput_7").value
     });
 }
